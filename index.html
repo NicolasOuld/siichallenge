@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <title>SII Challenge</title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  </head>
+
+  <body ng-app="challengeApp">
+
+    <div>
+        <!--Header de la page-->
+        <!-- <auto-hide-sticky-header class="sticky-header">
+            <div ng-include="'partials/common/header.html'"></div>
+        </auto-hide-sticky-header> -->
+
+        <div id="header" ng-include="'app/shared/header/headerView.html'"></div>
+        <div class="section">
+            <div id="body" ng-include="'app/shared/body/bodyView.html'"></div>
+        </div>
+    </div>
+
+  </body>
+
+  <!-- Bower components -->
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/angular/angular.min.js"></script>
+  <script src="/bower_components/angular-route/angular-route.min.js"></script>
+
+  <!-- Application -->
+  <script src="/app/app.modules.js"></script>
+  <script src="/app/app.routes.js"></script>
+
+</html>

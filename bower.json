@@ -1,0 +1,24 @@
+{
+  "name": "siichallenge",
+  "version": "1.0.0",
+  "homepage": "https://github.com/NicolasOuld/siichallenge",
+  "authors": [
+    "NicolasOuld <ouldbouamama.nicolas@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.6",
+    "angular-route": "^1.6.6"
+  }
+}
