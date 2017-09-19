@@ -1,10 +1,11 @@
 'use strict';
 
-var app = angular.module('challengeApp', [
-  'ngRoute'
+angular.module('challengeApp', [
+  'ui.router'
 ]).value('localStorage', window.localStorage)
   .value('apiKey', 'ZURaS2xEQ1BkVWgzUXVFdEl4eXB2ZnluRDpIZWpzUVpLdW1FeEFOcVZTVWtObGRLMlJOU3NjQkRXZmxxOTRiUFN2YVVCS1RJcFZtMw==')
   .value('urlApiTwitter', 'https://api.twitter.com/')
+  .value('corsProxy', 'https://cors-anywhere.herokuapp.com/')
 
   .run(['twitterApiSrv', '$log', 'apiKey', 'localStorage',
 

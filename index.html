@@ -8,15 +8,22 @@
 
   <body ng-app="challengeApp">
 
-    <div>
+    <div class="container-fixed">
+
+
         <!--Header de la page-->
         <!-- <auto-hide-sticky-header class="sticky-header">
             <div ng-include="'partials/common/header.html'"></div>
         </auto-hide-sticky-header> -->
 
         <div id="header" ng-include="'app/shared/header/headerView.html'"></div>
-        <div class="section">
-            <div id="body" ng-include="'app/shared/body/bodyView.html'"></div>
+
+        <div class="wrapper">
+            <!--Bloc page courante-->
+            <div class="row">
+                <div id="dynamic-content" ui-view>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -25,11 +32,16 @@
   <!-- Bower components -->
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/angular/angular.min.js"></script>
-  <script src="/bower_components/angular-route/angular-route.min.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
   <!-- Application -->
   <script src="/app/app.modules.js"></script>
   <script src="/app/app.routes.js"></script>
+
+  <!-- Shared -->
   <script src="/app/shared/twitterapi/twitterApiService.js"></script>
+
+  <!-- Components -->
+  <script src="/app/components/tweetList/tweetListController.js"></script>
 
 </html>
