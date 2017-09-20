@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('challengeApp', [
+  'angular-loading-bar',
   'ui.router'
 ]).value('localStorage', window.localStorage)
   .value('apiKey', 'ZURaS2xEQ1BkVWgzUXVFdEl4eXB2ZnluRDpIZWpzUVpLdW1FeEFOcVZTVWtObGRLMlJOU3NjQkRXZmxxOTRiUFN2YVVCS1RJcFZtMw==')
