@@ -7,20 +7,29 @@ angular.module('challengeApp')
         '$http',
         'twitterApiSrv',
         function ($scope, $log, $http, twitterApiSrv) {
-          
+
           var vm = this;
-          
-          vm.currentPage = 0;
+
+          vm.currentPage = {};
           vm.pageSize = 10;
-            
+
           var access_token  = localStorage.getItem('access_token');
           var token_type = localStorage.getItem('token_type');
 
-          vm.users = [];
-          vm.tweets = [];
-          
+          vm.users = {};
+          vm.tweets = {};
+
           vm.numberOfPages = function () {
-              return Math.ceil(vm.tweets.length/vm.pageSize);                
+              return Math.ceil(vm.tweets.length/vm.pageSize);
+          };
+
+          vm.changePage = function (way, userName) {
+            vm.currentPage[userName] = vm.currentPage[userName] + way;
+          }
+
+          vm.parseTwitterDate = function (text) {
+            var date = new Date(Date.parse(text.replace(/( +)/, ' UTC$1')));
+            return date;
           };
 
           vm.getTweets = function (userName) {
@@ -32,13 +41,20 @@ angular.module('challengeApp')
                 angular.forEach(response.data, function(data) {
                   var tweet = {};
 
-                  tweet.id = data.id;
-                  tweet.created_at = data.created_at;
+                  tweet.id = data.id_str;
+                  tweet.created_at = vm.parseTwitterDate(data.created_at);
                   tweet.text = data.text;
+                  tweet.url = "https://twitter.com/"
+                  if (data.hasOwnProperty('retweeted_status')) {
+                    tweet.url += data['retweeted_status']['user'].screen_name + '/status/' + data['retweeted_status'].id_str;
+                  } else {
+                    tweet.url += userName + '/status/' + tweet.id;
+                  }
+                  tweets.push(tweet);
 
-                  vm.tweets.push(tweet);
                 });
-                //vm.tweets.push(tweets);
+
+                vm.tweets[userName] = tweets;
                 console.log("vm.tweets : ", vm.tweets);
                 return tweets;
               }, function (error) {
@@ -53,7 +69,6 @@ angular.module('challengeApp')
               function (response) {
                 $log.info("Récupération de acces_token réussie");
 
-                console.log("response : ", response);
                 // Car le web service de twitter renvoie un tableau avec un seul élément
                 var data = response.data[0];
                 var user = {};
@@ -63,8 +78,9 @@ angular.module('challengeApp')
                 user.profile_image_url = data.profile_image_url;
                 user.description = data.description;
 
-                vm.users.push(user);
-                console.log("vm.user : ", vm.users);
+                vm.users[userName] = user;
+                vm.currentPage[userName] = 0;
+                //console.log("vm.user : ", vm.users);
               }, function (error) {
                 $log.error("Erreur lors de la récupération de acces_token");
                 $log.error(error);

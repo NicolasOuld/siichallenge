@@ -1,15 +1,46 @@
 
+<section class="tweetSection col-md-12">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-6 userList" ng-repeat="(kUser, user) in tweetsListCtrl.users">
 
-<div class="tweetList" ng-repeat="tweet in tweetsListCtrl.tweets | startFrom:tweetsListCtrl.currentPage*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
+      <div class="userDetail">
+        <img class="user-profil-pic" src="{{user.profile_image_url}}" alt="ProfilPic">
+        <div class="col-md-11">
+          <h3 class="h3-user-name">{{user.name}}</h3>
+          <p>{{user.description}}</p>
+          <p><a href="{{'https://twitter.com/' + kUser}}">@{{kUser}}</a></p>
+        </div>
+      </div>
+
+      <div class="tweetList" ng-repeat="(kTweet, tweet) in tweetsListCtrl.tweets[kUser] | startFrom:tweetsListCtrl.currentPage[kUser]*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
+        <p>{{tweet.text}}</p>
+        <p>Le {{tweet.created_at | date: 'dd/MM/yyyy'}} via <a href="{{tweet.url}}">Tweet</a></p>
+      </div>
+      <button ng-disabled="tweetsListCtrl.currentPage[kUser] == 0" ng-click="tweetsListCtrl.changePage(-1, kUser)">
+          Previous
+      </button>
+      <button ng-disabled="tweetsListCtrl.currentPage[kUser] >= tweetsListCtrl.tweets[kUser].length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.changePage(1, kUser)">
+          Next
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<!--<div class="tweetList" ng-repeat="tweet in tweetsListCtrl.tweets | startFrom:tweetsListCtrl.currentPage*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
   {{tweet.id}}
 </div>
 <button ng-disabled="tweetsListCtrl.currentPage == 0" ng-click="tweetsListCtrl.currentPage=tweetsListCtrl.currentPage-1">
     Previous
 </button>
 {{tweetsListCtrl.currentPage+1}}/{{tweetsListCtrl.numberOfPages()}}
-<button ng-disabled="tweetsListCtrl.currentPage >= tweetsListCtrl.data.length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.currentPage=tweetsListCtrl.currentPage+1">
+<button ng-disabled="tweetsListCtrl.currentPage >= tweetsListCtrl.tweets.length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.currentPage=tweetsListCtrl.currentPage+1">
     Next
-</button>
+</button>-->
 
 <!--<div class="userList" ng-repeat="userr in tweetsListCtrl.users">
   {{userr.id}}
