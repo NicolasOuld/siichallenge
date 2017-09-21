@@ -33,7 +33,7 @@ angular.module('challengeApp')
           };
 
           vm.getTweets = function (userName) {
-            twitterApiSrv.getLastTweets(access_token, token_type, userName).then(
+            twitterApiSrv.getLastTweets(access_token, token_type, userName, 40).then(
               function (response) {
                 $log.info("Récupération des tweets de " + userName + " réussie");
 
@@ -46,7 +46,7 @@ angular.module('challengeApp')
                   tweet.text = data.text;
                   tweet.url = "https://twitter.com/"
                   if (data.hasOwnProperty('retweeted_status')) {
-                    tweet.url += data['retweeted_status']['user'].screen_name + '/status/' + data['retweeted_status'].id_str;
+                    tweet.url += data.retweeted_status.user.screen_name + '/status/' + data.retweeted_status.id_str;
                   } else {
                     tweet.url += userName + '/status/' + tweet.id;
                   }
@@ -55,7 +55,6 @@ angular.module('challengeApp')
                 });
 
                 vm.tweets[userName] = tweets;
-                console.log("vm.tweets : ", vm.tweets);
                 return tweets;
               }, function (error) {
                 $log.error("Erreur lors de la récupération de acces_token");
@@ -67,7 +66,7 @@ angular.module('challengeApp')
           vm.getUser = function (userName) {
             twitterApiSrv.getUserByName(access_token, token_type, userName).then(
               function (response) {
-                $log.info("Récupération de acces_token réussie");
+                $log.info("Récupération du user " + userName + " réussie");
 
                 // Car le web service de twitter renvoie un tableau avec un seul élément
                 var data = response.data[0];
@@ -80,7 +79,6 @@ angular.module('challengeApp')
 
                 vm.users[userName] = user;
                 vm.currentPage[userName] = 0;
-                //console.log("vm.user : ", vm.users);
               }, function (error) {
                 $log.error("Erreur lors de la récupération de acces_token");
                 $log.error(error);

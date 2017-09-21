@@ -31,10 +31,10 @@ angular.module('challengeApp').factory('twitterApiSrv', [
              * @param token_type le type de token (bearer)
              * @param userName Le nom de l'utilisateur dont on veut les tweets
              */
-            getLastTweets: function(access_token, token_type, userName) {
+            getLastTweets: function(access_token, token_type, userName, count) {
               return $http({
                   method: 'GET',
-                  url: corsProxy + urlApiTwitter + '1.1/statuses/user_timeline.json?screen_name=' + userName,
+                  url: corsProxy + urlApiTwitter + '1.1/statuses/user_timeline.json?screen_name=' + userName + '&count=' + count,
                   headers: {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
                     'Authorization': token_type + ' ' + access_token,

@@ -1,60 +1,38 @@
+<div class="tweetSection">
 
-<section class="tweetSection col-md-12">
-  <div class="col-md-10 col-md-offset-1">
-    <div class="col-md-6 userList" ng-repeat="(kUser, user) in tweetsListCtrl.users">
-
-      <div class="userDetail">
-        <img class="user-profil-pic" src="{{user.profile_image_url}}" alt="ProfilPic">
-        <div class="col-md-11">
-          <h3 class="h3-user-name">{{user.name}}</h3>
-          <p>{{user.description}}</p>
-          <p><a href="{{'https://twitter.com/' + kUser}}">@{{kUser}}</a></p>
+  <div class="col-xl-4 col-md-6 col-sm-12" ng-repeat="(kUser, user) in tweetsListCtrl.users">
+    <div class="panelTweet panel panel-default">
+      <div class="header panel-heading">
+        <div class="row">
+          <div class="col-sm-1">
+            <img class="user-profil-pic" src="{{user.profile_image_url}}" alt="ProfilPic">
+          </div>
+          <div class="col-sm-11">
+            <h3 class="h3-user-name">{{user.name}}</h3>
+            <p>{{user.description}}</p>
+            <p><a href="{{'https://twitter.com/' + kUser}}">@{{kUser}}</a></p>
+          </div>
         </div>
       </div>
-
-      <div class="tweetList" ng-repeat="(kTweet, tweet) in tweetsListCtrl.tweets[kUser] | startFrom:tweetsListCtrl.currentPage[kUser]*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
-        <p>{{tweet.text}}</p>
-        <p>Le {{tweet.created_at | date: 'dd/MM/yyyy'}} via <a href="{{tweet.url}}">Tweet</a></p>
+      <div class="panel-body tweetsBlock">
+          <div class="tweetList" ng-repeat="(kTweet, tweet) in tweetsListCtrl.tweets[kUser] | startFrom:tweetsListCtrl.currentPage[kUser]*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
+            <p>{{tweet.text}}</p>
+            <p class="dateTweet">Le {{tweet.created_at | date: 'dd/MM/yyyy'}} voir sur <a href="{{tweet.url}}">Twitter</a></p>
+          </div>
       </div>
-      <button ng-disabled="tweetsListCtrl.currentPage[kUser] == 0" ng-click="tweetsListCtrl.changePage(-1, kUser)">
-          Previous
-      </button>
-      <button ng-disabled="tweetsListCtrl.currentPage[kUser] >= tweetsListCtrl.tweets[kUser].length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.changePage(1, kUser)">
-          Next
-      </button>
+      <div class="footer panel-footer">
+        <button class="btn btn-default" ng-disabled="tweetsListCtrl.currentPage[kUser] == 0" ng-click="tweetsListCtrl.changePage(-1, kUser)">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+            Previous
+        </button>
+        <button class="btn btn-default" ng-disabled="tweetsListCtrl.currentPage[kUser] >= tweetsListCtrl.tweets[kUser].length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.changePage(1, kUser)">
+            Next
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+        <div class="pagination">
+          {{tweetsListCtrl.currentPage[kUser] + 1}}/{{tweetsListCtrl.tweets[kUser].length/tweetsListCtrl.pageSize}}
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-
-
-
-
-
-<!--<div class="tweetList" ng-repeat="tweet in tweetsListCtrl.tweets | startFrom:tweetsListCtrl.currentPage*tweetsListCtrl.pageSize | limitTo:tweetsListCtrl.pageSize">
-  {{tweet.id}}
 </div>
-<button ng-disabled="tweetsListCtrl.currentPage == 0" ng-click="tweetsListCtrl.currentPage=tweetsListCtrl.currentPage-1">
-    Previous
-</button>
-{{tweetsListCtrl.currentPage+1}}/{{tweetsListCtrl.numberOfPages()}}
-<button ng-disabled="tweetsListCtrl.currentPage >= tweetsListCtrl.tweets.length/tweetsListCtrl.pageSize - 1" ng-click="tweetsListCtrl.currentPage=tweetsListCtrl.currentPage+1">
-    Next
-</button>-->
-
-<!--<div class="userList" ng-repeat="userr in tweetsListCtrl.users">
-  {{userr.id}}
-  {{tweetsListCtrl.tweets}}
-  <div class="tweetList" ng-repeat="tweett in tweetsListCtrl.tweets[userr.name]">
-    {{tweett.id}}
-  </div>
-</div>-->
-
-<!--<div>
-  <div class="userList" ng-repeat="user in tweetsListCtrl.users">
-    {{user.id}}
-    <div class="tweetList" ng-repeat="tweet in tweetsListCtrl.tweets">
-      {{tweet.id}}
-    </div>
-  </div>
-</div>-->
